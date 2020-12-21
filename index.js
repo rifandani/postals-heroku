@@ -18,18 +18,20 @@ app.get('/postals', function (req, res) {
 // https://roompy-postals.herokuapp.com/postal?code=76111
 app.get('/postal', function (req, res) {
   const code = req.query.code;
-  const postalArr = postals;
+  if (!code)
+    return (
+      res.status(400), json({ error: true, msg: 'Please input a "code" query' })
+    );
 
+  const postalArr = postals;
   const postal = postalArr.filter((el) => el.postal_code === code.toString());
 
   if (postal === []) {
-    return res
-      .status(200)
-      .json({
-        postal,
-        msg: 'Please, input a valid Indonesian Postal Code',
-        code,
-      });
+    return res.status(200).json({
+      postal,
+      msg: 'Please, input a valid Indonesian Postal Code',
+      code,
+    });
   }
 
   res.status(200).json(postal);
