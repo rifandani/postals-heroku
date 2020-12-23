@@ -20,6 +20,7 @@ app.get('/postal', function (req, res) {
   const lurah = req.query.lurah;
   const camat = req.query.camat;
   const kota = req.query.kota;
+  const prov = req.query.prov;
   const code = req.query.code;
   const postalArr = postals;
   let result = [];
@@ -30,7 +31,8 @@ app.get('/postal', function (req, res) {
       el.urban.includes(lurah.toUpperCase()),
     );
 
-    for (let i = 0; i < urbans.length; i++) {
+    let urLength = urbans.length;
+    for (let i = 0; i < urLength; i++) {
       result.push(urbans[i]);
     }
   }
@@ -41,7 +43,8 @@ app.get('/postal', function (req, res) {
       el.sub_district.includes(camat.toUpperCase()),
     );
 
-    for (let i = 0; i < sub_districts.length; i++) {
+    let suLength = sub_districts.length;
+    for (let i = 0; i < suLength; i++) {
       result.push(sub_districts[i]);
     }
   }
@@ -52,8 +55,21 @@ app.get('/postal', function (req, res) {
       el.city.includes(kota.toUpperCase()),
     );
 
-    for (let i = 0; i < cities.length; i++) {
+    let ciLength = cities.length;
+    for (let i = 0; i < ciLength; i++) {
       result.push(cities[i]);
+    }
+  }
+
+  // kalau ada query prov
+  if (prov) {
+    const provinces = postalArr.filter((el) =>
+      el.province_code.includes(prov.toString()),
+    );
+
+    let prLength = provinces.length;
+    for (let i = 0; i < prLength; i++) {
+      result.push(provinces[i]);
     }
   }
 
@@ -63,12 +79,26 @@ app.get('/postal', function (req, res) {
       (el) => el.postal_code === code.toString(),
     );
 
-    for (let i = 0; i < postal_codes.length; i++) {
+    let poLength = postal_codes.length;
+    for (let i = 0; i < poLength; i++) {
       result.push(postal_codes[i]);
     }
   }
 
   res.status(200).json(result);
+});
+
+// verify phone number
+app.post('/phone', async (req, res) => {
+  /* request body = {
+    createdAt: Date.now(),
+    userId: 'asdasdasdsad',
+    phoneNum: '+6282243199535',
+    expiry: 60000
+  } */
+  const data = req.body;
+
+  res.status(200).json(data);
 });
 
 app.listen(PORT, function () {
