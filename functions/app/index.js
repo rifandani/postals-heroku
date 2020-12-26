@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 // files
+const postals = require('../data/postals.json');
 
 function expressApp(functionName) {
   // init express app and Router
@@ -14,15 +15,16 @@ function expressApp(functionName) {
       ? `/${functionName}`
       : `/.netlify/functions/${functionName}/`;
 
-  // routes
-  router.get('/postals', require('../../controllers/Controller').getPostals);
-  router.get('/postal', require('../../controllers/Controller').getPostal);
-  router.get('/cities', require('../../controllers/Controller').getCities);
-  router.get(
-    '/sub-districts',
-    require('../../controllers/Controller').getSubDistricts,
-  );
-  router.get('/urbans', require('../../controllers/Controller').getUrbans);
+  // routes => /roompy/postals, dll
+  router.get('/sub-districts', (req, res) => {
+    const uniqueSubDistricts = postals.filter((postal, i, arr) => {
+      return (
+        i === arr.findIndex((el) => el.sub_district === postal.sub_district)
+      );
+    });
+
+    res.status(200).json(uniqueSubDistricts);
+  });
 
   // Setup routes
   app.use(routerBasePath, router);
