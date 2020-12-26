@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build" # This will be run the site build
+  functions = "functions-build" # functions build directory
+
+  # This is the directory is publishing to netlify's CDN => React
+  # publish = "build"
