@@ -7,11 +7,12 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: false })); // form data object, value objectnya berasal dari input attribute name
+app.use(express.json()); // request application/type === json
+
 // routes
-app.use('/', router);
+app.use('/', cors(), router);
 
 // server listener
 app.listen(PORT, function () {
