@@ -1,9 +1,9 @@
-import express from 'express';
+const express = require('express');
 // files
 const router = require('../../router');
 
 /* My express App */
-export default function expressApp(functionName) {
+function expressApp(functionName) {
   const app = express();
 
   // Set router base path if in local dev
@@ -17,3 +17,5 @@ export default function expressApp(functionName) {
 
   return app;
 }
+
+module.exports = expressApp;
