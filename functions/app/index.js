@@ -1,6 +1,6 @@
 import express from 'express';
 // files
-const router = require('./router');
+const router = require('../../router');
 
 /* My express App */
 export default function expressApp(functionName) {

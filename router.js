@@ -4,6 +4,7 @@ const router = express.Router();
 const Controller = require('./controllers/Controller');
 
 // middleware
+// router.use(compression()); // gzip responses
 router.use(cors());
 router.use(express.json()); // request application/type === json
 router.use(express.urlencoded({ extended: false })); // form data object, value objectnya berasal dari input attribute name
