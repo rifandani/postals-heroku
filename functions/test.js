@@ -15,7 +15,6 @@ exports.handler = async (event, context) => {
       message: 'Netlify lambda functions is awesome!',
       event,
       context,
-      callback,
     }),
   };
 };
