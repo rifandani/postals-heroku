@@ -8,25 +8,19 @@ function expressApp(functionName) {
   const router = express.Router();
 
   // Set router base path if in local dev
-  const routerBasePath =
-    process.env.NODE_ENV === 'dev'
-      ? `/${functionName}`
-      : `/.netlify/functions/${functionName}/`;
   // : `/.netlify/functions/${functionName}/`;
+  const routerBasePath =
+    process.env.NODE_ENV === 'dev' ? `/${functionName}` : `/${functionName}`;
 
   // routes
-  router.get('/users', (req, res) => {
-    res.json({
-      users: [
-        {
-          name: 'steve',
-        },
-        {
-          name: 'joe',
-        },
-      ],
-    });
-  });
+  router.get('/postals', require('../../controllers/Controller').getPostals);
+  router.get('/postal', require('../../controllers/Controller').getPostal);
+  router.get('/cities', require('../../controllers/Controller').getCities);
+  router.get(
+    '/sub-districts',
+    require('../../controllers/Controller').getSubDistricts,
+  );
+  router.get('/urbans', require('../../controllers/Controller').getUrbans);
 
   // Setup routes
   app.use(routerBasePath, router);
