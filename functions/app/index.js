@@ -10,7 +10,9 @@ function expressApp(functionName) {
   // Set router base path if in local dev
   // : `/.netlify/functions/${functionName}/`;
   const routerBasePath =
-    process.env.NODE_ENV === 'dev' ? `/${functionName}` : `/${functionName}`;
+    process.env.NODE_ENV === 'dev'
+      ? `/${functionName}`
+      : `/.netlify/functions/${functionName}/`;
 
   // routes
   router.get('/postals', require('../../controllers/Controller').getPostals);
